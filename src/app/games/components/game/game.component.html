@@ -1,0 +1,9 @@
+<h1>{{ game?.title }}</h1>
+
+<div class="game">
+	<div class="game__map map">
+		<div class="map__row" *ngFor="let row of map" >
+			<div class="map__item" *ngFor="let item of row">{{ item.id }}</div>
+		</div>
+	</div>
+</div>

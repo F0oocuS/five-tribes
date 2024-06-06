@@ -1,0 +1,7 @@
+<ul class="games-list">
+	<li *ngFor="let game of gamesList" class="games-list__item">
+		{{ game.title }}
+		<br>
+		<button [routerLink]="'' + game.id"> Go to {{ game.title }}</button>
+	</li>
+</ul>

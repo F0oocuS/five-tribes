@@ -1,0 +1,36 @@
+.game {
+	background: #eee;
+}
+
+.map {
+	padding: 20px;
+
+	&__row {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+		grid-template-rows: 1fr;
+		grid-gap: 1px;
+
+		&:not(:last-child) {
+			margin-bottom: 1px;
+		}
+	}
+
+	&__item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: calc(960px / 6);
+		height: calc(960px / 6);
+		background: #a0bab1;
+		border-radius: 3px;
+	}
+}
+
+@media(max-width: 1200px) {
+	.map {
+		margin: 0 auto;
+		max-width: 1000px;
+		width: 100%;
+	}
+}
