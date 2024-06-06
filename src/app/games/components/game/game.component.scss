@@ -1,36 +1,156 @@
 .game {
+	padding: 20px;
+	position: relative;
 	background: #eee;
+
+	&__buttons {
+		padding: 20px 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	&__button {
+		padding: 5px 10px;
+		cursor: pointer;
+	}
+
+	&__figure {
+		grid-template-columns: repeat(4, 1fr);
+		width: 100px;
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		background: #a3b6c4;
+	}
+
+	&__selected-cell {
+		width: 200px;
+		position: absolute;
+		bottom: 20px;
+		left: 20px;
+		background: #8292a6;
+	}
 }
 
 .map {
-	padding: 20px;
-
-	&__row {
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-		grid-template-rows: 1fr;
-		grid-gap: 1px;
-
-		&:not(:last-child) {
-			margin-bottom: 1px;
-		}
-	}
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	grid-gap: 1px;
+	width: 1500px;
+	height: 1250px;
+	background: green;
 
 	&__item {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: calc(960px / 6);
-		height: calc(960px / 6);
+		position: relative;
 		background: #a0bab1;
-		border-radius: 3px;
+		border-radius: 10px;
+		cursor: pointer;
 	}
 }
 
-@media(max-width: 1200px) {
-	.map {
-		margin: 0 auto;
-		max-width: 1000px;
-		width: 100%;
+.item {
+	&--active {
+		opacity: .8;
+	}
+
+	&--neighbor {
+		opacity: .9;
+	}
+
+	&__figures {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+	}
+
+	&__figure {
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background: white;
+
+		&:not(:last-child) {
+			margin-bottom: 2px;
+		}
+
+		&--yellow, &--1 {
+			background: #e3e326;
+		}
+
+		&--red, &--2 {
+			background: #af3939;
+		}
+
+		&--blue, &--3 {
+			background: #2d2de5;
+		}
+
+		&--green, &--4 {
+			background: #138513;
+		}
 	}
 }
+
+.figure {
+	display: grid;
+	grid-gap: 1px;
+
+	&__item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: calc(97px / 4);
+		height: calc(97px / 4);
+		border-radius: 50%;
+		background: #fff;
+
+		&--yellow, &--1 {
+			background: #e3e326;
+		}
+
+		&--red, &--2 {
+			background: #af3939;
+		}
+
+		&--blue, &--3 {
+			background: #2d2de5;
+		}
+
+		&--green, &--4 {
+			background: #138513;
+		}
+	}
+}
+
+.selected-cell {
+	padding: 10px;
+}
+
+@media(max-width: 2200px) {
+	.map {
+		width: 1200px;
+		height: 1000px;
+	}
+}
+
+@media(max-width: 1800px) {
+	.map {
+		width: 900px;
+		height: 750px;
+	}
+}
+
+@media(max-width: 1400px) {
+	.map {
+		width: 600px;
+		height: 500px;
+	}
+}
+

@@ -1,9 +1,45 @@
-<h1>{{ game?.title }}</h1>
+<h5>{{ game?.title }}</h5>
 
 <div class="game">
-	<div class="game__map map">
-		<div class="map__row" *ngFor="let row of map" >
-			<div class="map__item" *ngFor="let item of row">{{ item.id }}</div>
+	<div class="game__buttons">
+		<button class="game__button">Generate map</button>
+		<button class="game__button" (click)="clearMap()">Clear map</button>
+		<button class="game__button" (click)="shuffleFigures()">Shuffle tokens</button>
+		<button class="game__button" (click)="addTokensToMap()">Add tokens</button>
+		<button class="game__button" (click)="addAllTokensToMap()">Add all tokens</button>
+	</div>
+
+	<div class="game__selected-cell selected-cell" *ngIf="selectedCell">
+		<h2>Selected cell: {{ selectedCell.id }}</h2>
+
+		<div class="selected-cell__figure figure">
+			<ng-container *ngFor="let figure of selectedCell.figures">
+				<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
+			</ng-container>
 		</div>
+
+		<button class="game__button" (click)="removeSelectedCell()">Remove select</button>
+	</div>
+
+	<div class="game__map map">
+		<ng-container *ngFor="let row of map">
+			<ng-container *ngFor="let item of row">
+				<div class="map__item item" [ngClass]="{ 'item--active': item.isActive, 'item--neighbor': item.isNeighbor }" (click)="clickOnCell(item)">
+					{{ item.id }}
+
+					<div class="item__figures" *ngIf="item.figures.length">
+						<ng-container *ngFor="let figure of item.figures">
+							<div class="item__figure" [class]="'item__figure--' + figure"></div>
+						</ng-container>
+					</div>
+				</div>
+			</ng-container>
+		</ng-container>
+	</div>
+
+	<div class="game__figure figure">
+		<ng-container *ngFor="let figure of shuffledFigures">
+			<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
+		</ng-container>
 	</div>
 </div>
