@@ -22,14 +22,27 @@ interface Cell {
 export class GameComponent implements OnInit, OnDestroy {
 	public figures = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 	public shuffledFigures: any[];
-	public selectedCell: Cell | null;
-	public selectedCellNeighbor: any[] = [];
+	public isConfirmSelectedCell: boolean = false;
 	// public totalFigure = 90;
 	// public white = 20;
 	// public yellow = 16;
 	// public green = 18;
 	// public red = 18;
 	// public blue = 18;
+
+	//==================================================
+	//==================================================
+
+	public confirmedCell: Cell | null = null;
+	public selectedCell: Cell | null = null;
+	public activeCell: Cell | null = null;
+	// TODO fix selectedCellNeighbor and activeCellNeighbor types
+	public selectedCellNeighbor: any[] = [];
+	public activeCellNeighbor: any[] = [];
+	public confirmedCellNeighbor: any[] = [];
+
+	//==================================================
+	//==================================================
 
 	public game: Game | null;
 	public map: Cell[][] = [
@@ -44,7 +57,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
 	public ngOnInit(): void {
 		this.shuffleFigures();
-		// this.addTokensToMap();
+		this.addTokensToMap();
 
 		// console.log('-------------------------------------------------------------');
 		// console.log(this.figures);
@@ -100,33 +113,6 @@ export class GameComponent implements OnInit, OnDestroy {
 	public clickOnCell(cell: Cell): void {
 		this.selectCell(cell);
 		this.getCellNeighbors(cell);
-
-		for (let i = 0; i < this.selectedCellNeighbor.length; i++) {
-			if (this.selectedCellNeighbor[i]) {
-				this.selectedCellNeighbor[i].isNeighbor = true;
-			}
-		}
-
-		console.log(this.selectedCellNeighbor);
-		console.log(9999999999);
-
-
-
-
-
-		/*if (!this.selectedCell) {
-			this.selectedCell = cell;
-		} else {
-			if (this.selectedCell.figures.length) {
-				const figure = this.selectedCell.figures.pop();
-
-				if (cell.figures.includes(figure)) {
-					cell.figures = cell.figures.concat(figure);
-				} else {
-					this.selectedCell.figures = this.selectedCell.figures.concat(figure);
-				}
-			}
-		}*/
 	}
 
 	public selectCell(cell: Cell): void {
@@ -141,8 +127,8 @@ export class GameComponent implements OnInit, OnDestroy {
 			this.selectedCell.isActive = false;
 		}
 
-		this.selectedCellNeighbor = [];
-
+		this.clearNeighbor();
+		this.clearConfirmSelectedCell();
 		this.selectedCell = null;
 	}
 
@@ -169,6 +155,12 @@ export class GameComponent implements OnInit, OnDestroy {
 		}
 
 		this.selectedCellNeighbor = this.selectedCellNeighbor.concat(result);
+
+		for (let i = 0; i < this.selectedCellNeighbor.length; i++) {
+			if (this.selectedCellNeighbor[i]) {
+				this.selectedCellNeighbor[i].isNeighbor = true;
+			}
+		}
 	}
 
 	public getCellNeighbor(i: number, j: number): Cell | null {
@@ -193,6 +185,18 @@ export class GameComponent implements OnInit, OnDestroy {
 		}
 
 		this.selectedCellNeighbor = [];
+	}
+
+	public confirmSelectedCell(): void {
+		this.confirmedCell = this.selectedCell;
+		this.confirmedCellNeighbor = this.selectedCellNeighbor;
+		this.isConfirmSelectedCell = true;
+	}
+
+	public clearConfirmSelectedCell(): void {
+		this.confirmedCell = null;
+		this.confirmedCellNeighbor = [];
+		this.isConfirmSelectedCell = false;
 	}
 }
 

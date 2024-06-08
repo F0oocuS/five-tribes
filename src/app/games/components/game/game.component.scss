@@ -25,12 +25,16 @@
 		background: #a3b6c4;
 	}
 
-	&__selected-cell {
+	&__selected-cell, &__confirmed-cell {
 		width: 200px;
 		position: absolute;
 		bottom: 20px;
 		left: 20px;
-		background: #8292a6;
+	}
+
+	&__confirmed-cell {
+		top: 20px;
+		bottom: auto;
 	}
 }
 
@@ -62,6 +66,10 @@
 
 	&--neighbor {
 		opacity: .9;
+	}
+
+	&--confirmed {
+		background: #656591;
 	}
 
 	&__figures {
@@ -131,6 +139,18 @@
 
 .selected-cell {
 	padding: 10px;
+	background: #8292a6;
+	border: 3px solid #8292a6;
+
+	&--confirm {
+		border-color: #138513;
+	}
+}
+
+.confirmed-cell {
+	padding: 10px;
+	background: #8292a6;
+	border: 3px solid #8292a6;
 }
 
 @media(max-width: 2200px) {

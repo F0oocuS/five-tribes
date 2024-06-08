@@ -9,7 +9,19 @@
 		<button class="game__button" (click)="addAllTokensToMap()">Add all tokens</button>
 	</div>
 
-	<div class="game__selected-cell selected-cell" *ngIf="selectedCell">
+	<div class="game__confirmed-cell confirmed-cell" *ngIf="confirmedCell">
+		<h2>Your turn will start from cell {{ confirmedCell.id }}</h2>
+
+		<div class="confirmed-cell__figure figure">
+			<ng-container *ngFor="let figure of confirmedCell.figures">
+				<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
+			</ng-container>
+		</div>
+
+		<button class="game__button" (click)="clearConfirmSelectedCell()">Remove confirmation</button>
+	</div>
+
+	<div class="game__selected-cell selected-cell" [ngClass]="{'selected-cell--confirm': isConfirmSelectedCell}" *ngIf="selectedCell">
 		<h2>Selected cell: {{ selectedCell.id }}</h2>
 
 		<div class="selected-cell__figure figure">
@@ -18,13 +30,14 @@
 			</ng-container>
 		</div>
 
+		<button class="game__button" (click)="confirmSelectedCell()">Confirm Selection</button>
 		<button class="game__button" (click)="removeSelectedCell()">Remove select</button>
 	</div>
 
 	<div class="game__map map">
 		<ng-container *ngFor="let row of map">
 			<ng-container *ngFor="let item of row">
-				<div class="map__item item" [ngClass]="{ 'item--active': item.isActive, 'item--neighbor': item.isNeighbor }" (click)="clickOnCell(item)">
+				<div class="map__item item" [ngClass]="{ 'item--active': item.isActive, 'item--neighbor': item.isNeighbor, 'item--confirmed': confirmedCell?.id === item.id }" (click)="clickOnCell(item)">
 					{{ item.id }}
 
 					<div class="item__figures" *ngIf="item.figures.length">
