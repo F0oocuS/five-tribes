@@ -61,8 +61,14 @@
 		</ng-container>
 	</div>
 
-	<div class="game__figure figure">
+	<div class="game__figure figure" *ngIf="shuffledFigures">
 		<ng-container *ngFor="let figure of shuffledFigures">
+			<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
+		</ng-container>
+	</div>
+
+	<div class="game__figure figure">
+		<ng-container *ngFor="let figure of playerFigures">
 			<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
 		</ng-container>
 	</div>

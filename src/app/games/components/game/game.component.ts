@@ -34,7 +34,7 @@ export class GameComponent implements OnInit, OnDestroy {
 	//==================================================
 
 	public confirmedCell: Cell | null = null;
-	public selectedCell: Cell | null = null;
+	public selectedCell: any = null;
 	public activeCell: Cell | null = null;
 	// TODO fix selectedCellNeighbor and activeCellNeighbor types
 	public selectedCellNeighbor: any[] = [];
@@ -42,6 +42,8 @@ export class GameComponent implements OnInit, OnDestroy {
 	public confirmedCellNeighbor: any[] = [];
 
 	public selectedFigure: any = null;
+
+	public playerFigures: any[] = [];
 
 	//==================================================
 	//==================================================
@@ -119,7 +121,9 @@ export class GameComponent implements OnInit, OnDestroy {
 		if (this.isConfirmSelectedCell && this.selectedFigure) {
 			const cellToMove = this.activeCellNeighbor.find(item => item.id === this.selectedCell?.id);
 
-			if (cellToMove.figures.includes(this.selectedFigure)) {
+			if (cellToMove.figures.includes(this.selectedFigure) || cellToMove.figures.length === 0) {
+				const figure = this.selectedFigure;
+
 				this.removeFigureFromCell();
 
 				this.selectedCell?.figures.push(this.selectedFigure);
@@ -128,8 +132,12 @@ export class GameComponent implements OnInit, OnDestroy {
 
 				this.activeCell = this.selectedCell;
 				this.activeCellNeighbor = this.selectedCellNeighbor;
+
+				if (!this.confirmedCell?.figures.length) {
+					this.getAllFiguresAfterTurn(figure);
+					this.endTurn();
+				}
 			}
-			// console.log(cellToMove);
 		}
 	}
 
@@ -230,19 +238,33 @@ export class GameComponent implements OnInit, OnDestroy {
 		const index = this.confirmedCell?.figures.indexOf(this.selectedFigure);
 
 		if (index || index === 0) {
-			console.log('Figures Array:', figuresArray);
-			console.log('Selected Figure:', this.selectedFigure);
-			console.log('Index of Selected Figure:', index);
-
-			if (index !== -1) { // Перевірка, що елемент знайдено
-				figuresArray.splice(index, 1); // Видалення елемента з масиву
-				console.log('Element removed. Updated Array:', figuresArray);
-			} else {
-				console.log('Element not found in the array.');
+			if (index !== -1) {
+				figuresArray.splice(index, 1);
 			}
-
-			console.log('Final Array:', this.confirmedCell?.figures);
 		}
+	}
+
+	public clearActiveCell(): void {
+		this.activeCell = null;
+		this.activeCellNeighbor = [];
+	}
+
+	public getAllFiguresAfterTurn(figure: any): void {
+		const keptValue: any[] = [];
+
+		if (this.selectedCell && this.selectedCell.figures) {
+			this.selectedCell.figures.forEach((item: any) => {
+				item === figure ? this.playerFigures.push(item) : keptValue.push(item);
+			});
+
+			this.selectedCell.figures = this.selectedCell.figures.filter((item: any) => item !== figure);
+		}
+	}
+
+	public endTurn() {
+		this.clearConfirmSelectedCell();
+		this.removeSelectedCell();
+		this.clearActiveCell();
 	}
 }
 
