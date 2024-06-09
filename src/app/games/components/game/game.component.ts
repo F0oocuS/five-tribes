@@ -20,7 +20,7 @@ interface Cell {
 })
 
 export class GameComponent implements OnInit, OnDestroy {
-	public figures = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+	public figures = [5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 	public shuffledFigures: any[];
 	public isConfirmSelectedCell: boolean = false;
 	// public totalFigure = 90;
@@ -40,6 +40,8 @@ export class GameComponent implements OnInit, OnDestroy {
 	public selectedCellNeighbor: any[] = [];
 	public activeCellNeighbor: any[] = [];
 	public confirmedCellNeighbor: any[] = [];
+
+	public selectedFigure: any = null;
 
 	//==================================================
 	//==================================================
@@ -113,6 +115,22 @@ export class GameComponent implements OnInit, OnDestroy {
 	public clickOnCell(cell: Cell): void {
 		this.selectCell(cell);
 		this.getCellNeighbors(cell);
+
+		if (this.isConfirmSelectedCell && this.selectedFigure) {
+			const cellToMove = this.activeCellNeighbor.find(item => item.id === this.selectedCell?.id);
+
+			if (cellToMove.figures.includes(this.selectedFigure)) {
+				this.removeFigureFromCell();
+
+				this.selectedCell?.figures.push(this.selectedFigure);
+
+				this.selectedFigure = null;
+
+				this.activeCell = this.selectedCell;
+				this.activeCellNeighbor = this.selectedCellNeighbor;
+			}
+			// console.log(cellToMove);
+		}
 	}
 
 	public selectCell(cell: Cell): void {
@@ -128,7 +146,7 @@ export class GameComponent implements OnInit, OnDestroy {
 		}
 
 		this.clearNeighbor();
-		this.clearConfirmSelectedCell();
+		// this.clearConfirmSelectedCell();
 		this.selectedCell = null;
 	}
 
@@ -190,13 +208,41 @@ export class GameComponent implements OnInit, OnDestroy {
 	public confirmSelectedCell(): void {
 		this.confirmedCell = this.selectedCell;
 		this.confirmedCellNeighbor = this.selectedCellNeighbor;
+		this.activeCell = this.selectedCell;
+		this.activeCellNeighbor = this.selectedCellNeighbor;
 		this.isConfirmSelectedCell = true;
+
 	}
 
 	public clearConfirmSelectedCell(): void {
 		this.confirmedCell = null;
 		this.confirmedCellNeighbor = [];
 		this.isConfirmSelectedCell = false;
+	}
+
+	public selectFigure(figure: any): void {
+		console.log(figure);
+		this.selectedFigure = figure;
+	}
+
+	public removeFigureFromCell(): void {
+		const figuresArray = this.confirmedCell?.figures || [];
+		const index = this.confirmedCell?.figures.indexOf(this.selectedFigure);
+
+		if (index || index === 0) {
+			console.log('Figures Array:', figuresArray);
+			console.log('Selected Figure:', this.selectedFigure);
+			console.log('Index of Selected Figure:', index);
+
+			if (index !== -1) { // Перевірка, що елемент знайдено
+				figuresArray.splice(index, 1); // Видалення елемента з масиву
+				console.log('Element removed. Updated Array:', figuresArray);
+			} else {
+				console.log('Element not found in the array.');
+			}
+
+			console.log('Final Array:', this.confirmedCell?.figures);
+		}
 	}
 }
 

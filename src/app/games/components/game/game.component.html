@@ -12,13 +12,24 @@
 	<div class="game__confirmed-cell confirmed-cell" *ngIf="confirmedCell">
 		<h2>Your turn will start from cell {{ confirmedCell.id }}</h2>
 
+		<h4>Click on color to select one!</h4>
 		<div class="confirmed-cell__figure figure">
 			<ng-container *ngFor="let figure of confirmedCell.figures">
-				<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
+				<div class="figure__item figure__item--pointer" [class]="'figure__item--' + figure" (click)="selectFigure(figure)">{{ figure }}</div>
 			</ng-container>
 		</div>
 
 		<button class="game__button" (click)="clearConfirmSelectedCell()">Remove confirmation</button>
+	</div>
+
+	<div class="game__active-cell active-cell" *ngIf="activeCell">
+		<h2>Your turn now on cell {{ activeCell.id }}</h2>
+
+		<div class="active-cell__figure figure">
+			<ng-container *ngFor="let figure of activeCell.figures">
+				<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
+			</ng-container>
+		</div>
 	</div>
 
 	<div class="game__selected-cell selected-cell" [ngClass]="{'selected-cell--confirm': isConfirmSelectedCell}" *ngIf="selectedCell">
@@ -54,5 +65,10 @@
 		<ng-container *ngFor="let figure of shuffledFigures">
 			<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
 		</ng-container>
+	</div>
+
+	<div class="game__selected-figure selected-figure" *ngIf="selectedFigure || selectedFigure === 0">
+		<h4>Your current selected figure</h4>
+		<div class="selected-figure__item"  [class]="'selected-figure__item--' + selectedFigure"></div>
 	</div>
 </div>
