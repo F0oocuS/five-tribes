@@ -11,5 +11,12 @@
 <router-outlet></router-outlet>
 
 <footer class="footer">
+	<div>
+		<input [(ngModel)]="message" type="text" placeholder="Type a message">
+		<button (click)="sendMessage()" >Send</button>
+	</div>
 
+	<ul>
+		<li *ngFor="let message of messages">{{ message }}</li>
+	</ul>
 </footer>
