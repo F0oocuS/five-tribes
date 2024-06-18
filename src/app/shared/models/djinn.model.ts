@@ -4,4 +4,5 @@ export class Djinn {
 	public victoryPoints: number;
 	public imagePath: string;
 	public effect: string;
+	public price: string | null;
 }
