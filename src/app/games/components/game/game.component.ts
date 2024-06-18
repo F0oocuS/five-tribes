@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Game } from '../../interfaces/game.interface';
 import { ActivatedRoute } from '@angular/router';
 
 import { GamesService } from '../../services/games.service';
 import { HelperService } from '../../../shared/services/helper.service';
-import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
+
+import { Djinn } from '../../../shared/models/djinn.model';
+import { Tile } from '../../../shared/models/tile.model';
+import { Game } from '../../interfaces/game.interface';
 
 interface Cell {
 	id: number;
@@ -23,17 +25,22 @@ export class GameComponent implements OnInit, OnDestroy {
 	public figures = [5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 	public shuffledFigures: any[];
 	public isConfirmSelectedCell: boolean = false;
-	// public totalFigure = 90;
-	// public white = 20;
-	// public yellow = 16;
-	// public green = 18;
-	// public red = 18;
-	// public blue = 18;
+	public djinns: Djinn[] = Djinn.getDjinnsList();
+	public tiles: Tile[] = Tile.getTiles();
 
-	//==================================================
-	//==================================================
 
-	public confirmedCell: Cell | null = null;
+		// public totalFigure = 90;
+		// public white = 20;
+		// public yellow = 16;
+		// public green = 18;
+		// public red = 18;
+		// public blue = 18;
+
+		//==================================================
+		//==================================================
+
+		public confirmedCell: Cell | null = null;
+
 	public selectedCell: any = null;
 	public activeCell: Cell | null = null;
 	// TODO fix selectedCellNeighbor and activeCellNeighbor types

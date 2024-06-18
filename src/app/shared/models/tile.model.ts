@@ -4,6 +4,8 @@ import { Meeple } from './meeple.model';
 import { TileType } from '../types/tile.type';
 import { TileColorType } from '../types/tile-color.type';
 
+import { TilesStub } from '../../../assets/stubs/core/tiles.stub';
+
 export class Tile {
 	public id: number;
 	public color: TileColorType;
@@ -15,4 +17,8 @@ export class Tile {
 	public palacesCount: number;
 	public palmaTreesCount: number;
 	public action: any;
+
+	public static getTiles(): Tile[] {
+		return [...TilesStub];
+	}
 }
