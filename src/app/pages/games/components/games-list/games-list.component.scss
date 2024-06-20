@@ -1,5 +1,11 @@
 .games-list {
-	list-style: none;
+	&__title {
+		margin-bottom: 10px;
+		text-align: center;
+	}
+}
+
+.list {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-rows: 1fr 1fr 1fr;

@@ -1,10 +1,9 @@
-.header {
+.app {
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
+	flex-direction: column;
+	min-height: 100vh;
 
-.footer {
-	height: 500px;
-	background: lightblue;
+	&__footer {
+		margin-top: auto;
+	}
 }

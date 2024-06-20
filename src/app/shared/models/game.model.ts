@@ -5,9 +5,10 @@ import { Resource } from './resource.model';
 
 export class Game {
 	public id: number;
+	public title: string;
 	public tiles: Tile[];
 	public players: Player[];
-	public currentPlayer: Player;
+	public currentPlayer: Player | null;
 	public djinns: Djinn[];
 	public activeDjinns: Djinn[];
 	public resources: Resource[];

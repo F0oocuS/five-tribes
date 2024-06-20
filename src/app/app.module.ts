@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
-import { TestComponent } from './shared/components/test/test.component';
-import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		TestComponent
+		HeaderComponent,
+		FooterComponent
 	],
 	imports: [
 		BrowserModule,
@@ -19,5 +22,4 @@ import { FormsModule } from '@angular/forms';
 	providers: [],
 	bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

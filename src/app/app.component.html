@@ -1,22 +1,10 @@
-<header class="header">
-	<h1>Hello {{ title }}</h1>
-	<p>Hello world</p>
+<div class="app">
+	<app-header class="app__header"></app-header>
 
-	<button routerLink="games">GAMES</button>
-	<br>
-	<br>
-	<button routerLink="lobby">LOBBY</button>
-</header>
-
-<router-outlet></router-outlet>
-
-<footer class="footer">
-	<div>
-		<input [(ngModel)]="message" type="text" placeholder="Type a message">
-		<button (click)="sendMessage()" >Send</button>
+	<div class="app__content">
+		<router-outlet></router-outlet>
 	</div>
 
-	<ul>
-		<li *ngFor="let message of messages">{{ message }}</li>
-	</ul>
-</footer>
+	<app-footer class="app__footer"></app-footer>
+</div>
+

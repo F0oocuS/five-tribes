@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
 	templateUrl: './games.component.html',
 	styleUrl: './games.component.scss'
 })
-export class GamesComponent {
-
-}
+export class GamesComponent {}

@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Game } from '../../shared/interfaces/game.interface';
+import { Game } from '../../shared/models/game.model';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class GameStateService {
 	// TODO need to remove this one
-	private gamesList: any = [
-		{ id: 1, title: 'Game 1' },
-		{ id: 2, title: 'Game 2' },
-		{ id: 3, title: 'Game 3' },
-		{ id: 4, title: 'Game 4' },
-		{ id: 5, title: 'Game 5' },
-		{ id: 6, title: 'Game 6' }
+	private gamesList: Game[] = [
+		{ id: 1,title: 'Game 1', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] },
+		{ id: 2,title: 'Game 2', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] },
+		{ id: 3,title: 'Game 3', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] },
+		{ id: 4,title: 'Game 4', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] },
+		{ id: 5,title: 'Game 5', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] },
+		{ id: 6,title: 'Game 6', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] }
 	];
 
 	constructor() {}

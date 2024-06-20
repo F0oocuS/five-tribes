@@ -1,6 +1,6 @@
-<h5>{{ game?.title }}</h5>
-
 <div class="game">
+	<h5>{{ game?.title }}</h5>
+
 	<div class="game__buttons">
 		<button class="game__button">Generate map</button>
 		<button class="game__button" (click)="clearMap()">Clear map</button>
@@ -9,72 +9,72 @@
 		<button class="game__button" (click)="addAllTokensToMap()">Add all tokens</button>
 	</div>
 
-	<div class="game__confirmed-cell confirmed-cell" *ngIf="confirmedCell">
+	<!--<div class="game__confirmed-cell confirmed-cell" *ngIf="confirmedCell">
 		<h2>Your turn will start from cell {{ confirmedCell.id }}</h2>
 
 		<h4>Click on color to select one!</h4>
 		<div class="confirmed-cell__figure figure">
 			<ng-container *ngFor="let figure of confirmedCell.figures">
-				<div class="figure__item figure__item--pointer" [class]="'figure__item--' + figure" (click)="selectFigure(figure)">{{ figure }}</div>
+				<div class="figure__item figure__item&#45;&#45;pointer" [class]="'figure__item&#45;&#45;' + figure" (click)="selectFigure(figure)">{{ figure }}</div>
 			</ng-container>
 		</div>
 
 		<button class="game__button" (click)="clearConfirmSelectedCell()">Remove confirmation</button>
-	</div>
+	</div>-->
 
-	<div class="game__active-cell active-cell" *ngIf="activeCell">
+	<!--<div class="game__active-cell active-cell" *ngIf="activeCell">
 		<h2>Your turn now on cell {{ activeCell.id }}</h2>
 
 		<div class="active-cell__figure figure">
 			<ng-container *ngFor="let figure of activeCell.figures">
-				<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
+				<div class="figure__item" [class]="'figure__item&#45;&#45;' + figure">{{ figure }}</div>
 			</ng-container>
 		</div>
-	</div>
+	</div>-->
 
-	<div class="game__selected-cell selected-cell" [ngClass]="{'selected-cell--confirm': isConfirmSelectedCell}" *ngIf="selectedCell">
+	<!--<div class="game__selected-cell selected-cell" [ngClass]="{'selected-cell&#45;&#45;confirm': isConfirmSelectedCell}" *ngIf="selectedCell">
 		<h2>Selected cell: {{ selectedCell.id }}</h2>
 
 		<div class="selected-cell__figure figure">
 			<ng-container *ngFor="let figure of selectedCell.figures">
-				<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
+				<div class="figure__item" [class]="'figure__item&#45;&#45;' + figure">{{ figure }}</div>
 			</ng-container>
 		</div>
 
 		<button class="game__button" (click)="confirmSelectedCell()">Confirm Selection</button>
 		<button class="game__button" (click)="removeSelectedCell()">Remove select</button>
-	</div>
+	</div>-->
 
-	<div class="game__map map">
+	<!--<div class="game__map map">
 		<ng-container *ngFor="let row of map">
 			<ng-container *ngFor="let item of row">
-				<div class="map__item item" [ngClass]="{ 'item--active': item.isActive, 'item--neighbor': item.isNeighbor, 'item--confirmed': confirmedCell?.id === item.id }" (click)="clickOnCell(item)">
+				<div class="map__item item" [ngClass]="{ 'item&#45;&#45;active': item.isActive, 'item&#45;&#45;neighbor': item.isNeighbor, 'item&#45;&#45;confirmed': confirmedCell?.id === item.id }" (click)="clickOnCell(item)">
 					{{ item.id }}
 
 					<div class="item__figures" *ngIf="item.figures.length">
 						<ng-container *ngFor="let figure of item.figures">
-							<div class="item__figure" [class]="'item__figure--' + figure"></div>
+							<div class="item__figure" [class]="'item__figure&#45;&#45;' + figure"></div>
 						</ng-container>
 					</div>
 				</div>
 			</ng-container>
 		</ng-container>
-	</div>
+	</div>-->
 
-	<div class="game__figure figure" *ngIf="shuffledFigures">
+	<!--<div class="game__figure figure" *ngIf="shuffledFigures">
 		<ng-container *ngFor="let figure of shuffledFigures">
-			<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
+			<div class="figure__item" [class]="'figure__item&#45;&#45;' + figure">{{ figure }}</div>
 		</ng-container>
 	</div>
 
 	<div class="game__figure figure">
 		<ng-container *ngFor="let figure of playerFigures">
-			<div class="figure__item" [class]="'figure__item--' + figure">{{ figure }}</div>
+			<div class="figure__item" [class]="'figure__item&#45;&#45;' + figure">{{ figure }}</div>
 		</ng-container>
 	</div>
 
 	<div class="game__selected-figure selected-figure" *ngIf="selectedFigure || selectedFigure === 0">
 		<h4>Your current selected figure</h4>
-		<div class="selected-figure__item"  [class]="'selected-figure__item--' + selectedFigure"></div>
-	</div>
+		<div class="selected-figure__item"  [class]="'selected-figure__item&#45;&#45;' + selectedFigure"></div>
+	</div>-->
 </div>

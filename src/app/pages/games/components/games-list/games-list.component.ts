@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GameStateService } from '../../../../core/services/game-state.service';
+import { Game } from '../../../../shared/models/game.model';
 
 @Component({
 	selector: 'app-games-list',
@@ -7,15 +8,12 @@ import { GameStateService } from '../../../../core/services/game-state.service';
 	styleUrl: './games-list.component.scss'
 })
 export class GamesListComponent {
-	public gamesList: any = [];
+	public gamesList: Game[] = [];
 
 	constructor(private gameStateService: GameStateService) {}
 
 	public ngOnInit(): void {
-		console.log(this.gamesList);
-
 		this.gamesList = this.gameStateService.getAllGames();
-
 		console.log(this.gamesList);
 	}
 }
