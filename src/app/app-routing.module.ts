@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TestComponent } from './shared/components/test/test.component';
 
 const routes: Routes = [
-	{ path: 'games', loadChildren: () => import('./games/games.module').then(m => m.GamesModule)},
+	{ path: 'games', loadChildren: () => import('./pages/games/games.module').then(m => m.GamesModule)},
 	{ path: 'lobby', component: TestComponent }
 ];
 

@@ -1,27 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Djinn } from '../../../../shared/models/djinn.model';
+import { Tile } from '../../../../shared/models/tile.model';
 import { ActivatedRoute } from '@angular/router';
-
-import { GamesService } from '../../services/games.service';
-import { HelperService } from '../../../shared/services/helper.service';
-
-import { Djinn } from '../../../shared/models/djinn.model';
-import { Tile } from '../../../shared/models/tile.model';
-import { Game } from '../../interfaces/game.interface';
-
-interface Cell {
-	id: number;
-	figures: any[];
-	isActive: boolean;
-	isNeighbor: boolean;
-}
+import { HelperService } from '../../../../shared/services/helper.service';
+import { GameStateService } from '../../../../core/services/game-state.service';
 
 @Component({
-	selector: 'app-game',
-	templateUrl: './game.component.html',
-	styleUrl: './game.component.scss'
+  selector: 'app-game',
+  templateUrl: './game.component.html',
+  styleUrl: './game.component.scss'
 })
-
-export class GameComponent implements OnInit, OnDestroy {
+export class GameComponent {
 	public figures = [5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 	public shuffledFigures: any[];
 	public isConfirmSelectedCell: boolean = false;
@@ -29,20 +18,20 @@ export class GameComponent implements OnInit, OnDestroy {
 	public tiles: Tile[] = Tile.getTiles();
 
 
-		// public totalFigure = 90;
-		// public white = 20;
-		// public yellow = 16;
-		// public green = 18;
-		// public red = 18;
-		// public blue = 18;
+	// public totalFigure = 90;
+	// public white = 20;
+	// public yellow = 16;
+	// public green = 18;
+	// public red = 18;
+	// public blue = 18;
 
-		//==================================================
-		//==================================================
+	//==================================================
+	//==================================================
 
-		public confirmedCell: Cell | null = null;
+	public confirmedCell: any | null = null;
 
 	public selectedCell: any = null;
-	public activeCell: Cell | null = null;
+	public activeCell: any | null = null;
 	// TODO fix selectedCellNeighbor and activeCellNeighbor types
 	public selectedCellNeighbor: any[] = [];
 	public activeCellNeighbor: any[] = [];
@@ -55,8 +44,8 @@ export class GameComponent implements OnInit, OnDestroy {
 	//==================================================
 	//==================================================
 
-	public game: Game | null;
-	public map: Cell[][] = [
+	public game: any | null;
+	public map: any[][] = [
 		[{ id: 1, isNeighbor: false, isActive: false, figures: [] }, { id: 2, isNeighbor: false, isActive: false, figures: [] }, { id: 3, isNeighbor: false, isActive: false, figures: [] }, { id: 4, isNeighbor: false, isActive: false, figures: [] }, { id: 5, isNeighbor: false, isActive: false, figures: [] }, { id: 6, isNeighbor: false, isActive: false, figures: [] }],
 		[{ id: 7, isNeighbor: false, isActive: false, figures: [] }, { id: 8, isNeighbor: false, isActive: false, figures: [] }, { id: 9, isNeighbor: false, isActive: false, figures: [] }, { id: 10, isNeighbor: false, isActive: false, figures: [] }, { id: 11, isNeighbor: false, isActive: false, figures: [] }, { id: 12, isNeighbor: false, isActive: false, figures: [] }],
 		[{ id: 13, isNeighbor: false, isActive: false, figures: [] }, { id: 14, isNeighbor: false, isActive: false, figures: [] }, { id: 15, isNeighbor: false, isActive: false, figures: [] }, { id: 16, isNeighbor: false, isActive: false, figures: [] }, { id: 17, isNeighbor: false, isActive: false, figures: [] }, { id: 18, isNeighbor: false, isActive: false, figures: [] }],
@@ -64,7 +53,7 @@ export class GameComponent implements OnInit, OnDestroy {
 		[{ id: 25, isNeighbor: false, isActive: false, figures: [] }, { id: 26, isNeighbor: false, isActive: false, figures: [] }, { id: 27, isNeighbor: false, isActive: false, figures: [] }, { id: 28, isNeighbor: false, isActive: false, figures: [] }, { id: 29, isNeighbor: false, isActive: false, figures: [] }, { id: 30, isNeighbor: false, isActive: false, figures: [] }]
 	];
 
-	constructor(private gamesService: GamesService, private activateRoute: ActivatedRoute, private helperService: HelperService) {}
+	constructor(private gameStateService: GameStateService, private activateRoute: ActivatedRoute, private helperService: HelperService) {}
 
 	public ngOnInit(): void {
 		this.shuffleFigures();
@@ -78,7 +67,7 @@ export class GameComponent implements OnInit, OnDestroy {
 		const gameId = this.activateRoute.snapshot.paramMap.get('id');
 
 		if (gameId) {
-			const game = this.gamesService.getGame(+gameId);
+			const game = this.gameStateService.getGame(+gameId);
 
 			this.game = game ? game : null;
 		}
@@ -121,7 +110,7 @@ export class GameComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	public clickOnCell(cell: Cell): void {
+	public clickOnCell(cell: any): void {
 		this.selectCell(cell);
 		this.getCellNeighbors(cell);
 
@@ -148,7 +137,7 @@ export class GameComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	public selectCell(cell: Cell): void {
+	public selectCell(cell: any): void {
 		this.clearNeighbor();
 		this.removeSelectedCell();
 		this.selectedCell = cell;
@@ -165,7 +154,7 @@ export class GameComponent implements OnInit, OnDestroy {
 		this.selectedCell = null;
 	}
 
-	public getCellNeighbors(cell: Cell): void {
+	public getCellNeighbors(cell: any): void {
 		const { i, j } = this.getCellIndexes(cell);
 		const result = [];
 
@@ -196,11 +185,11 @@ export class GameComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	public getCellNeighbor(i: number, j: number): Cell | null {
+	public getCellNeighbor(i: number, j: number): any | null {
 		return this.map[i]?.[j] ?? null;
 	}
 
-	public getCellIndexes(cell: Cell): any {
+	public getCellIndexes(cell: any): any {
 		for (let i = 0; i < this.map.length; i++) {
 			const index = this.map[i].indexOf(cell);
 
@@ -274,5 +263,3 @@ export class GameComponent implements OnInit, OnDestroy {
 		this.clearActiveCell();
 	}
 }
-
-
