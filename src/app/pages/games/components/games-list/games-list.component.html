@@ -1,7 +1,9 @@
 <div class="games-list">
 	<div class="games-list__title">List of all created games!</div>
 
-	<ul class="games-list__list list">
+	<button class="games-list__create" (click)="onCreateGame()">Create game!</button>
+
+	<ul class="games-list__list list" *ngIf="gamesList.length">
 		<li class="list__item" *ngFor="let game of gamesList">
 			{{ game.title }}
 			<button [routerLink]="game.id.toString()">Connect to game {{ game.id }}</button>

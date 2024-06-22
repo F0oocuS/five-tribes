@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
@@ -12,14 +14,17 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 	declarations: [
 		AppComponent,
 		HeaderComponent,
-		FooterComponent
+		FooterComponent,
+		NotFoundComponent
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
+		HttpClientModule,
 		FormsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

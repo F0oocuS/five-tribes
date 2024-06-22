@@ -2,6 +2,7 @@ import { Player } from './player.model';
 import { Tile } from './tile.model';
 import { Djinn } from './djinn.model';
 import { Resource } from './resource.model';
+import { User } from './user.model';
 
 export class Game {
 	public id: number;
@@ -13,4 +14,5 @@ export class Game {
 	public activeDjinns: Djinn[];
 	public resources: Resource[];
 	public activeResources: Resource[];
+	public creator?: User;
 }

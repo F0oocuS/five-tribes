@@ -1,37 +1,47 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Game } from '../../shared/models/game.model';
+import { GameHttpService } from './game-http.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class GameStateService {
-	// TODO need to remove this one
-	private gamesList: Game[] = [
-		{ id: 1,title: 'Game 1', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] },
-		{ id: 2,title: 'Game 2', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] },
-		{ id: 3,title: 'Game 3', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] },
-		{ id: 4,title: 'Game 4', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] },
-		{ id: 5,title: 'Game 5', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] },
-		{ id: 6,title: 'Game 6', tiles: [], players: [], currentPlayer: null, djinns: [], activeDjinns: [], resources: [], activeResources: [] }
-	];
+	private gamesListSubject = new BehaviorSubject<Game[]>([]);
+	private gameSubject = new BehaviorSubject<Game | null>(null);
 
-	constructor() {}
+	public gamesList$: Observable<Game[]> = this.gamesListSubject.asObservable();
+	public game$: Observable<Game | null> = this.gameSubject.asObservable();
 
-	public getAllGames(): Game[] {
-		return this.gamesList;
+	constructor(private gameHttpService: GameHttpService) {}
+
+	private setGamesListState(games: Game[]): void {
+		this.gamesListSubject.next(games);
 	}
 
-	public getGame(id: number): Game | undefined {
-		return [...this.gamesList].find(game => game.id === id);
+	private setGameState(game: Game): void {
+		this.gameSubject.next(game);
 	}
 
-	// TODO end of removing
+	public getAllGames():void {
+		this.gameHttpService.getAllGames().subscribe((games: Game[]) => {
+			this.setGamesListState(games);
+		});
+	}
 
-	private gameStateSubject = new BehaviorSubject<any>(null);
-	gameState$ = this.gameStateSubject.asObservable();
+	public createGame(): void {
+		this.gameHttpService.createGame().subscribe((game: Game) => {
+			const currentGames = this.gamesListSubject.value;
+			const updatedGames = [...currentGames, game];
 
-	setGameState(gameState: Game) {
-		this.gameStateSubject.next(gameState);
+			this.setGamesListState(updatedGames);
+		});
+	}
+
+	public getGame(id: number): void {
+		this.gameHttpService.getGameById(id).subscribe((game: Game) => {
+			this.setGameState(game);
+			console.log(game);
+		});
 	}
 }

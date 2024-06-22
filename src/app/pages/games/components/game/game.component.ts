@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Game } from '../../../../shared/models/game.model';
 import { GameStateService } from '../../../../core/services/game-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-game',
@@ -10,6 +11,8 @@ import { GameStateService } from '../../../../core/services/game-state.service';
 	styleUrl: './game.component.scss'
 })
 export class GameComponent {
+	private gameSubscription: Subscription;
+
 	public game: Game | null = null;
 
 	constructor(private activatedRoute: ActivatedRoute, private gameStateService: GameStateService) {}
@@ -41,9 +44,12 @@ export class GameComponent {
 	//==================================================
 
 	public ngOnInit(): void {
-		this.game = this.getGame();
+		this.gameSubscription = this.gameStateService.game$.subscribe((game: Game | null) => {
 
-		console.log(this.game);
+		});
+		// this.game = this.getGame();
+
+		// console.log(this.game);
 		// this.shuffleFigures();
 		// this.addTokensToMap();
 
@@ -64,7 +70,7 @@ export class GameComponent {
 
 	public ngOnDestroy(): void {}
 
-	public getGame(): Game | null {
+	/*public getGame(): Game | null {
 		const gameId = this.activatedRoute.snapshot.paramMap.get('id');
 
 		if (gameId) {
@@ -74,7 +80,7 @@ export class GameComponent {
 		}
 
 		return null;
-	}
+	}*/
 
 	public shuffleFigures(): void {
 		// this.shuffledFigures = this.helperService.shuffleArray([...this.figures]);
