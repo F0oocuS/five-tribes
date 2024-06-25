@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Game } from '../../../../shared/models/game.model';
 import { GameStateService } from '../../../../core/services/game-state.service';
 import { Subscription } from 'rxjs';
+import { UserStateService } from '../../../../core/services/user-state.service';
+import { User } from '../../../../shared/models/user.model';
+import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
 
 @Component({
 	selector: 'app-game',
@@ -11,18 +14,13 @@ import { Subscription } from 'rxjs';
 	styleUrl: './game.component.scss'
 })
 export class GameComponent {
+	private userSubscription: Subscription;
 	private gameSubscription: Subscription;
 
 	public game: Game | null = null;
+	public user: User | null = null;
 
-	constructor(private activatedRoute: ActivatedRoute, private gameStateService: GameStateService) {}
-
-
-	// public figures = [5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
-	// public shuffledFigures: any[];
-	// public isConfirmSelectedCell: boolean = false;
-	// public djinns: Djinn[] = Djinn.getDjinnsList();
-	// public tiles: Tile[] = Tile.getTiles();
+	constructor(private activatedRoute: ActivatedRoute, private gameStateService: GameStateService, private userStateService: UserStateService) {}
 
 	//==================================================
 	//==================================================
@@ -44,43 +42,42 @@ export class GameComponent {
 	//==================================================
 
 	public ngOnInit(): void {
-		this.gameSubscription = this.gameStateService.game$.subscribe((game: Game | null) => {
-
-		});
-		// this.game = this.getGame();
-
-		// console.log(this.game);
-		// this.shuffleFigures();
-		// this.addTokensToMap();
-
-		// console.log('-------------------------------------------------------------');
-		// console.log(this.figures);
-		// console.log(this.shuffledFigures);
-		// console.log('-------------------------------------------------------------');
-
-		// const gameId = this.activateRoute.snapshot.paramMap.get('id');
-		//
-		// if (gameId) {
-		// 	const game = this.gameStateService.getGame(+gameId);
-		//
-		// 	this.game = game ? game : null;
-		// }
-
-	}
-
-	public ngOnDestroy(): void {}
-
-	/*public getGame(): Game | null {
 		const gameId = this.activatedRoute.snapshot.paramMap.get('id');
 
 		if (gameId) {
-			const game = this.gameStateService.getGame(parseInt(gameId));
-
-			return game ? game : null;
+			this.gameStateService.getGame(+gameId);
 		}
 
-		return null;
-	}*/
+		this.gameSubscription = this.gameStateService.game$.subscribe((game: Game | null) => {
+			this.game = game;
+
+			console.log('');
+			console.log('============= GAME LOG START =============');
+			console.log(game);
+			console.log('============= GAME LOG END =============');
+			console.log('');
+		});
+
+		this.userSubscription = this.userStateService.user$.subscribe((user: User | null) => {
+			this.user = user;
+
+			console.log('');
+			console.log('============= USER LOG START =============');
+			console.log(this.user);
+			console.log('============= USER LOG END =============');
+			console.log('');
+		});
+	}
+
+	public ngOnDestroy(): void {
+		this.gameSubscription.unsubscribe();
+		this.userSubscription.unsubscribe();
+	}
+
+	public onConnectToGame() {
+
+		console.log('Connect to game ' + this.game?.id);
+	}
 
 	public shuffleFigures(): void {
 		// this.shuffledFigures = this.helperService.shuffleArray([...this.figures]);

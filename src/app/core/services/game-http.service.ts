@@ -23,4 +23,8 @@ export class GameHttpService {
 	public createGame(): Observable<Game> {
 		return this.httpClient.get<Game>(environment.restApiUrl + 'games/create');
 	}
+
+	public updateGame(game: Game): Observable<Game> {
+		return this.httpClient.post<Game>(environment.restApiUrl + 'games/update', game);
+	}
 }

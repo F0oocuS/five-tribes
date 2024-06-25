@@ -1,12 +1,26 @@
 <div class="game">
-	<h5>{{ game?.title }}</h5>
+	<div class="game__content" *ngIf="game">
+		<h5>{{ game.title }}</h5>
 
-	<div class="game__buttons">
-		<button class="game__button">Generate map</button>
-		<button class="game__button" (click)="clearMap()">Clear map</button>
-		<button class="game__button" (click)="shuffleFigures()">Shuffle tokens</button>
-		<button class="game__button" (click)="addTokensToMap()">Add tokens</button>
-		<button class="game__button" (click)="addAllTokensToMap()">Add all tokens</button>
+		<button class="game__connect-to-game" (click)="onConnectToGame()">Connect to game</button>
+
+		<ul class="game__players-list" *ngIf="game.players.length">
+			<ng-container *ngFor="let player of game.players">
+				<li class="game__player">{{ player.user.name }} + {{ player.id }}</li>
+			</ng-container>
+		</ul>
+
+		<!--<div class="game__buttons">
+			<button class="game__button">Generate map</button>
+			<button class="game__button" (click)="clearMap()">Clear map</button>
+			<button class="game__button" (click)="shuffleFigures()">Shuffle tokens</button>
+			<button class="game__button" (click)="addTokensToMap()">Add tokens</button>
+			<button class="game__button" (click)="addAllTokensToMap()">Add all tokens</button>
+		</div>-->
+	</div>
+
+	<div class="game__not-found" *ngIf="!game">
+		<h5>Game was not found</h5>
 	</div>
 
 	<!--<div class="game__confirmed-cell confirmed-cell" *ngIf="confirmedCell">

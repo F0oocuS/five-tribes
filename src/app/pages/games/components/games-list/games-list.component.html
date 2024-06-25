@@ -6,7 +6,7 @@
 	<ul class="games-list__list list" *ngIf="gamesList.length">
 		<li class="list__item" *ngFor="let game of gamesList">
 			{{ game.title }}
-			<button [routerLink]="game.id.toString()">Connect to game {{ game.id }}</button>
+			<button (click)="onConnectToGame(game)">Go to game {{ game.id }}</button>
 		</li>
 	</ul>
 </div>

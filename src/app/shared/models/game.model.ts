@@ -3,6 +3,7 @@ import { Tile } from './tile.model';
 import { Djinn } from './djinn.model';
 import { Resource } from './resource.model';
 import { User } from './user.model';
+import { AccessType } from '../types/access.type';
 
 export class Game {
 	public id: number;
@@ -15,4 +16,5 @@ export class Game {
 	public resources: Resource[];
 	public activeResources: Resource[];
 	public creator?: User;
+	public accessType: AccessType;
 }

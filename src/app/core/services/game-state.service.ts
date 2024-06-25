@@ -23,7 +23,7 @@ export class GameStateService {
 		this.gameSubject.next(game);
 	}
 
-	public getAllGames():void {
+	public getAllGames(): void {
 		this.gameHttpService.getAllGames().subscribe((games: Game[]) => {
 			this.setGamesListState(games);
 		});
@@ -41,7 +41,12 @@ export class GameStateService {
 	public getGame(id: number): void {
 		this.gameHttpService.getGameById(id).subscribe((game: Game) => {
 			this.setGameState(game);
-			console.log(game);
 		});
+	}
+
+	public updateGame(game: Game): void {
+		this.gameHttpService.updateGame(game).subscribe((game: Game) => {
+			this.setGameState(game);
+		})
 	}
 }

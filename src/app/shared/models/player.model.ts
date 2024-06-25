@@ -2,6 +2,7 @@ import { Meeple } from './meeple.model';
 import { Tile } from './tile.model';
 import { Resource } from './resource.model';
 import { Djinn } from './djinn.model';
+import { User } from './user.model';
 
 
 export class Player {
@@ -14,4 +15,5 @@ export class Player {
 	public tiles: Tile[];
 	public resources: Resource[];
 	public djinn: Djinn[];
+	public user: User;
 }
