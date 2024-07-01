@@ -75,8 +75,23 @@ export class GameComponent {
 	}
 
 	public onConnectToGame() {
+		if (this.user && this.game) {
+			this.game?.players.push({
+				id: 1,
+				score: 0,
+				gold: 50,
+				color: 'black',
+				camelCount: 8,
+				meeples: [],
+				tiles: [],
+				resources: [],
+				djinn: [],
+				user: this.user
+			});
 
-		console.log('Connect to game ' + this.game?.id);
+			this.gameStateService.updateGame(this.game);
+			console.log('Connect to game ' + this.game?.id);
+		}
 	}
 
 	public shuffleFigures(): void {
