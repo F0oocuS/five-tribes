@@ -8,13 +8,15 @@ import { GameComponent } from './components/game/game.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { GameCreatePopupComponent } from './components/game-create-popup/game-create-popup.component';
+import { GameTileComponent } from './components/game-tile/game-tile.component';
 
 @NgModule({
 	declarations: [
 		GamesComponent,
 		GamesListComponent,
 		GameComponent,
-  GameCreatePopupComponent
+  GameCreatePopupComponent,
+  GameTileComponent
 	],
 	imports: [
 		CommonModule,

@@ -1,0 +1,14 @@
+<div class="tile">
+	<div class="tile__victory-points" [class]="'tile__victory-points--' + tile.color">
+		{{ tile.victoryPoints }}
+	</div>
+
+	<div class="tile__name">{{ tile.type }}</div>
+
+	<div class="tile__meeples" *ngIf="meeples">
+		<ng-container *ngFor="let meeple of meeples">
+			<div class="tile__meeple" [class]="'tile__meeple--' + meeple">{{ meeple }}</div>
+		</ng-container>
+	</div>
+
+</div>

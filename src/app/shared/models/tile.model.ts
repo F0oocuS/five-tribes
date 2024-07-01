@@ -12,13 +12,10 @@ export class Tile {
 	public victoryPoints: number;
 	public imagePath: string;
 	public type: TileType;
-	public position: Position | null;
-	public meeples: Meeple[];
+	public meeples: string;
 	public palacesCount: number;
 	public palmaTreesCount: number;
 	public action: any;
-
-	public static getTiles(): Tile[] {
-		return [...TilesStub];
-	}
+	public x: number;
+	public y: number;
 }

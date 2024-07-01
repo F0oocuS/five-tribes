@@ -1,6 +1,6 @@
 import { Tile } from '../../../app/shared/models/tile.model';
 
-export const TilesStub: Tile[] = [
+export const TilesStub = [
 	{
 		id: 1,
 		color: 'red',

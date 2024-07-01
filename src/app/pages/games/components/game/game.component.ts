@@ -6,7 +6,6 @@ import { GameStateService } from '../../../../core/services/game-state.service';
 import { Subscription } from 'rxjs';
 import { UserStateService } from '../../../../core/services/user-state.service';
 import { User } from '../../../../shared/models/user.model';
-import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
 
 @Component({
 	selector: 'app-game',

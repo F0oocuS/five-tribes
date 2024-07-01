@@ -10,13 +10,30 @@
 			</ng-container>
 		</ul>
 
-		<!--<div class="game__buttons">
+		<div class="game__buttons">
 			<button class="game__button">Generate map</button>
 			<button class="game__button" (click)="clearMap()">Clear map</button>
 			<button class="game__button" (click)="shuffleFigures()">Shuffle tokens</button>
 			<button class="game__button" (click)="addTokensToMap()">Add tokens</button>
 			<button class="game__button" (click)="addAllTokensToMap()">Add all tokens</button>
-		</div>-->
+		</div>
+
+		<div class="game__map map" *ngIf="game.tiles.length">
+			<ng-container *ngFor="let tile of game.tiles">
+<!--				<div class="map__item item" [ngClass]="{ 'item&#45;&#45;active': item.isActive, 'item&#45;&#45;neighbor': item.isNeighbor, 'item&#45;&#45;confirmed': confirmedCell?.id === item.id }" (click)="clickOnCell(item)">-->
+				<div class="map__tile">
+					<app-game-tile [tile]="tile"></app-game-tile>
+				</div>
+
+<!--					<div class="item__figures" *ngIf="item.figures.length">-->
+<!--						<ng-container *ngFor="let figure of item.figures">-->
+<!--							<div class="item__figure" [class]="'item__figure&#45;&#45;' + figure"></div>-->
+<!--						</ng-container>-->
+<!--					</div>-->
+<!--				</div>-->
+			</ng-container>
+		</div>
+
 	</div>
 
 	<div class="game__not-found" *ngIf="!game">
@@ -59,21 +76,7 @@
 		<button class="game__button" (click)="removeSelectedCell()">Remove select</button>
 	</div>-->
 
-	<!--<div class="game__map map">
-		<ng-container *ngFor="let row of map">
-			<ng-container *ngFor="let item of row">
-				<div class="map__item item" [ngClass]="{ 'item&#45;&#45;active': item.isActive, 'item&#45;&#45;neighbor': item.isNeighbor, 'item&#45;&#45;confirmed': confirmedCell?.id === item.id }" (click)="clickOnCell(item)">
-					{{ item.id }}
 
-					<div class="item__figures" *ngIf="item.figures.length">
-						<ng-container *ngFor="let figure of item.figures">
-							<div class="item__figure" [class]="'item__figure&#45;&#45;' + figure"></div>
-						</ng-container>
-					</div>
-				</div>
-			</ng-container>
-		</ng-container>
-	</div>-->
 
 	<!--<div class="game__figure figure" *ngIf="shuffledFigures">
 		<ng-container *ngFor="let figure of shuffledFigures">
