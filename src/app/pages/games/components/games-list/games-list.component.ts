@@ -3,6 +3,7 @@ import { GameStateService } from '../../../../core/services/game-state.service';
 import { Game } from '../../../../shared/models/game.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { GameItem } from '../../../../shared/interfaces/game-item.interface';
 
 @Component({
 	selector: 'app-games-list',
@@ -12,12 +13,12 @@ import { Router } from '@angular/router';
 export class GamesListComponent implements OnInit, OnDestroy {
 	private gamesListSubscription: Subscription;
 
-	public gamesList: Game[] = [];
+	public gamesList: GameItem[] = [];
 
 	constructor(private gameStateService: GameStateService, private router: Router) {}
 
 	public ngOnInit(): void {
-		this.gamesListSubscription = this.gameStateService.gamesList$.subscribe((games: Game[]) => {
+		this.gamesListSubscription = this.gameStateService.gamesList$.subscribe((games: GameItem[]) => {
 			this.gamesList = games;
 		});
 
@@ -29,12 +30,15 @@ export class GamesListComponent implements OnInit, OnDestroy {
 	}
 
 	public onCreateGame(): void {
-		this.gameStateService.createGame();
+		const gameItem: GameItem = {
+			title: 'First game',
+			accessType: 'public',
+			maxPlayerCount: 3,
+			creatorId: 1,
+		}
+
+		this.gameStateService.createGame(gameItem);
 	}
 
-	public onConnectToGame(game: Game): void {
-		console.log('Connect to the game ' + game.id);
-
-		this.router.navigate(['games', game.id]);
-	}
+	public onConnectToGame(gameItem: GameItem): void {}
 }

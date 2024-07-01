@@ -2,21 +2,40 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Game } from '../../shared/models/game.model';
 import { GameHttpService } from './game-http.service';
+import { GameItem } from '../../shared/interfaces/game-item.interface';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class GameStateService {
-	private gamesListSubject = new BehaviorSubject<Game[]>([]);
+	private gamesListSubject = new BehaviorSubject<GameItem[]>([]);
 	private gameSubject = new BehaviorSubject<Game | null>(null);
 
-	public gamesList$: Observable<Game[]> = this.gamesListSubject.asObservable();
+	public gamesList$: Observable<GameItem[]> = this.gamesListSubject.asObservable();
 	public game$: Observable<Game | null> = this.gameSubject.asObservable();
 
 	constructor(private gameHttpService: GameHttpService) {}
 
-	private setGamesListState(games: Game[]): void {
-		this.gamesListSubject.next(games);
+	public createGame(gameItem: GameItem): void {
+		this.gameHttpService.createGame(gameItem).subscribe((game: Game) => {
+			const gameItem: GameItem = {
+				id: game.id,
+				title: game.title,
+				accessType: game.accessType,
+				maxPlayerCount: game.maxPlayerCount,
+				creatorId: game.creatorId
+			}
+
+			console.log(gameItem);
+			const currentGames = this.gamesListSubject.value;
+			const updatedGames = [...currentGames, gameItem];
+
+			this.setGamesListState(updatedGames);
+		});
+	}
+
+	private setGamesListState(gameItems: GameItem[]): void {
+		this.gamesListSubject.next(gameItems);
 	}
 
 	private setGameState(game: Game): void {
@@ -24,17 +43,8 @@ export class GameStateService {
 	}
 
 	public getAllGames(): void {
-		this.gameHttpService.getAllGames().subscribe((games: Game[]) => {
-			this.setGamesListState(games);
-		});
-	}
-
-	public createGame(): void {
-		this.gameHttpService.createGame().subscribe((game: Game) => {
-			const currentGames = this.gamesListSubject.value;
-			const updatedGames = [...currentGames, game];
-
-			this.setGamesListState(updatedGames);
+		this.gameHttpService.getAllGames().subscribe((gameItems: GameItem[]) => {
+			this.setGamesListState(gameItems);
 		});
 	}
 
@@ -42,11 +52,5 @@ export class GameStateService {
 		this.gameHttpService.getGameById(id).subscribe((game: Game) => {
 			this.setGameState(game);
 		});
-	}
-
-	public updateGame(game: Game): void {
-		this.gameHttpService.updateGame(game).subscribe((game: Game) => {
-			this.setGameState(game);
-		})
 	}
 }

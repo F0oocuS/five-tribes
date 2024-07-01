@@ -10,11 +10,11 @@ export class Game {
 	public title: string;
 	public tiles: Tile[];
 	public players: Player[];
-	public currentPlayer: Player | null;
+	public maxPlayerCount: number;
+	public activePlayerId: number | null;
 	public djinns: Djinn[];
-	public activeDjinns: Djinn[];
 	public resources: Resource[];
-	public activeResources: Resource[];
-	public creator?: User;
+	public creatorId: number;
 	public accessType: AccessType;
+	public password?: string;
 }

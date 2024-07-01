@@ -74,25 +74,7 @@ export class GameComponent {
 		this.userSubscription.unsubscribe();
 	}
 
-	public onConnectToGame() {
-		if (this.user && this.game) {
-			this.game?.players.push({
-				id: 1,
-				score: 0,
-				gold: 50,
-				color: 'black',
-				camelCount: 8,
-				meeples: [],
-				tiles: [],
-				resources: [],
-				djinn: [],
-				user: this.user
-			});
-
-			this.gameStateService.updateGame(this.game);
-			console.log('Connect to game ' + this.game?.id);
-		}
-	}
+	public onConnectToGame() {}
 
 	public shuffleFigures(): void {
 		// this.shuffledFigures = this.helperService.shuffleArray([...this.figures]);
