@@ -10,7 +10,23 @@
 			</li>
 
 			<li class="header__list-item" *ngIf="!user">
-				<button class="header__list-link" (click)="onLogin()">Login</button>
+				<button class="header__list-link" (click)="onSignIn(4)">Sign In 4</button>
+			</li>
+
+			<li class="header__list-item" *ngIf="!user">
+				<button class="header__list-link" (click)="onSignIn(3)">Sign In 3</button>
+			</li>
+
+			<li class="header__list-item" *ngIf="!user">
+				<button class="header__list-link" (click)="onSignIn(2)">Sign In 2</button>
+			</li>
+
+			<li class="header__list-item" *ngIf="!user">
+				<button class="header__list-link" (click)="onSignIn(1)">Sign In 1</button>
+			</li>
+
+			<li class="header__list-item" *ngIf="!user">
+				<button class="header__list-link" (click)="onSignUp()">Sign Up</button>
 			</li>
 
 			<li class="header__list-item" *ngIf="user">
