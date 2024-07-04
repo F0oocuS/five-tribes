@@ -11,9 +11,10 @@ export class Player {
 	public gold: number;
 	public color: string;
 	public camelCount: number;
-	public meeples: Meeple[];
+	public meeples: string;
+	public userId: number;
+	public gameId: number;
 	public tiles: Tile[];
 	public resources: Resource[];
 	public djinn: Djinn[];
-	public user: User;
 }

@@ -1,0 +1,12 @@
+.game-lobby {
+	&__buttons {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	&__button {
+		padding: 5px 10px;
+	}
+}

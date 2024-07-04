@@ -24,12 +24,12 @@ export class AppComponent implements OnInit {
 				id: new Date().getTime(),
 				name: 'Ihor',
 				email: 'test@mail.com',
-				token: 'test-token'
+				password: 'test-token'
 			}
-			this.userStateService.createUser(user);
+			// this.userStateService.createUser(user);
 			window.localStorage.setItem('user', JSON.stringify(user));
 		} else {
-			this.userStateService.createUser(JSON.parse(user));
+			// this.userStateService.createUser(JSON.parse(user));
 		}
 
 		this.websocketService.getMessage().subscribe((message: string) => {

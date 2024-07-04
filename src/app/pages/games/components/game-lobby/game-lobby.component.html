@@ -1,0 +1,21 @@
+<div class="game-lobby">
+	<div class="game-lobby__title">{{ game?.title }}</div>
+
+	<div class="game-lobby__buttons">
+		<button class="game-lobby__button" (click)="onJoinToGame()">Join to game!</button>
+<!--		<button class="game-lobby__button"></button>-->
+<!--		<button class="game-lobby__button"></button>-->
+	</div>
+
+	<div class="game-lobby__players-list" *ngIf="game?.players && game?.players?.length">
+		<div class="game-lobby__players-list-title">Players</div>
+
+		<ul class="game-lobby__players">
+			<ng-container *ngFor="let player of game?.players">
+				<li class="game-lobby__player">
+					<button class="game-lobby__button" (click)="onLeaveTheGame()">Leave game!</button>
+				</li>
+			</ng-container>
+		</ul>
+	</div>
+</div>

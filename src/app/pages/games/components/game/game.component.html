@@ -4,11 +4,11 @@
 
 		<button class="game__connect-to-game" (click)="onConnectToGame()">Connect to game</button>
 
-		<ul class="game__players-list" *ngIf="game.players.length">
-			<ng-container *ngFor="let player of game.players">
-				<li class="game__player">{{ player.user.name }} + {{ player.id }}</li>
-			</ng-container>
-		</ul>
+<!--		<ul class="game__players-list" *ngIf="game.players.length">-->
+<!--			<ng-container *ngFor="let player of game.players">-->
+<!--				<li class="game__player">{{ player.user.name }} + {{ player.id }}</li>-->
+<!--			</ng-container>-->
+<!--		</ul>-->
 
 		<div class="game__buttons">
 			<button class="game__button">Generate map</button>

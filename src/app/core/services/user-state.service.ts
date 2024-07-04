@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { User } from '../../shared/models/user.model';
+import { UserHttpService } from './user-http.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,9 +12,21 @@ export class UserStateService {
 
 	public user$ = this.userSubject.asObservable();
 
-	public createUser(user: User): void {
+	constructor(private userHttpService: UserHttpService) {}
+
+	private setUserState(user: User | null): void {
 		this.userSubject.next(user);
 	}
 
-	constructor() {}
+	public createUser(user: User): void {
+		this.userHttpService.createUser(user).subscribe((user: User | null) => {
+			this.setUserState(user);
+		});
+	}
+
+	public clearUser(): void {
+		this.setUserState(null);
+	}
+
+
 }
