@@ -6,6 +6,7 @@ import { SignUpResponse } from '../interfaces/sign-up-response.interface';
 import { SignInResponse } from '../interfaces/sign-in-response.interface';
 
 import { environment } from '../../../environments/environment';
+import { AuthStateService } from './auth-state.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -13,17 +14,17 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
 	private readonly url = environment.restApiUrl + 'auth/';
 
-	constructor(private httpClient: HttpClient) {}
+	constructor(private httpClient: HttpClient, private authStateService: AuthStateService) {}
 
 	public signUp(user: { name: string; email: string; password: string }): Observable<SignUpResponse> {
 		return this.httpClient.post<SignUpResponse>(this.url + 'sign-up', user);
 	}
 
 	public signIn(user: { email: string; password: string }): Observable<SignInResponse> {
-		console.log(this.url + 'sign-in');
 		return this.httpClient.post<SignInResponse>(this.url + 'sign-in', user).pipe(
 			tap(response => {
 				localStorage.setItem('access_token', response.access_token);
+				this.authStateService.signIn();
 			}),
 			catchError(error => {
 				console.error('Error occurred during sign-in: ', error);
@@ -34,6 +35,7 @@ export class AuthService {
 
 	public logout(): void {
 		localStorage.removeItem('access_token');
+		this.authStateService.logout();
 	}
 
 	public getToken(): string | null {

@@ -12,6 +12,7 @@ import { AuthService } from './core/services/auth.service';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
 	declarations: [
@@ -33,7 +34,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 			multi: true
 		},
 		AuthGuard,
-		AuthService
+		AuthService,
+		CookieService
 	],
 	bootstrap: [AppComponent]
 })

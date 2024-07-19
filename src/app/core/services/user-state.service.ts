@@ -20,13 +20,13 @@ export class UserStateService {
 		this.userSubject.next(user);
 	}
 
-	public createUser(user: User): void {
+	public signUpUser(user: { name: string; email: string; password: string }): void {
 		this.authService.signUp(user).subscribe((user: SignUpResponse) => {
 			// this.setUserState(user);
 		});
 	}
 
-	public signIn(user: { email: string; password: string }): void {
+	public signInUser(user: { email: string; password: string }): void {
 		this.authService.signIn(user).subscribe((response: SignInResponse) => {
 			console.log(response);
 		})
